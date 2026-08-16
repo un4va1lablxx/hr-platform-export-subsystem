@@ -8,6 +8,11 @@ The subsystem consists of two isolated microservices communicating synchronously
 * **`export-user` (Port 8081)**: The core orchestration service. It handles client requests, processes employee records, and streams generated reports. It acts as an OpenFeign client to fetch organization meta-data.
 * **`export-organization` (Port 8082)**: A dedicated microservice managing organization structures and legal profiles.
 
+## 📺 Demonstration
+
+![Application Demo](/assets/demo.gif)
+![Test Reports](/assets/tests.png)
+
 ## ⚡ Key Technical Features & Patterns
 
 * **Multi-Module Maven Architecture**: Unified dependency, property, and lifecycle management via a central root parent `pom.xml`.
