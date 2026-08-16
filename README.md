@@ -10,8 +10,16 @@ The subsystem consists of two isolated microservices communicating synchronously
 
 ## 📺 Demonstration
 
-![Application Demo](/assets/demo.gif)
-![Test Reports](/assets/tests.png)
+<p align="center">
+  <img src="assets/demo.gif" alt="Application Demo" width="75%"/>
+  <br>
+  <em>Figure 1: Demonstration of synchronous report generation via Swagger UI using OpenFeign data enrichment.</em>
+</p>
+<p align="center">
+  <img src="assets/tests.png" alt="Test Reports" width="550px"/>
+  <br>
+  <em>Figure 2: Execution logs confirming 100% pass rate for all unit and service isolation tests.</em>
+</p>
 
 ## ⚡ Key Technical Features & Patterns
 
