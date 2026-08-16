@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: hr-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: reliab_user
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init-multiple-databases.sh:/docker-entrypoint-initdb.d/init-multiple-databases.sh
+
+
+  export-organization:
+    build:
+      context: .
+      dockerfile: export-organization/Dockerfile
+    container_name: export-organization-service
+    ports:
+      - "8082:8082"
+    environment:
+      - DB_ORG_URL=jdbc:postgresql://postgres-db:5432/reliab_organization
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+    depends_on:
+      - postgres-db
+
+  export-user:
+    build:
+      context: .
+      dockerfile: export-user/Dockerfile
+    container_name: export-user-service
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_USER_URL=jdbc:postgresql://postgres-db:5432/reliab_user
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - ORGANIZATION_SERVICE_URL=http://export-organization:8082
+    depends_on:
+      - postgres-db
+      - export-organization
+
+volumes:
+  pgdata:
